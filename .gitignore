@@ -1,0 +1,7 @@
+.*
+!.gitignore
+*~
+target
+project/project/
+project/target/
+project/boot/
