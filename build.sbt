@@ -17,11 +17,13 @@ resolvers += "Scala Tools Snapshots" at "http://scala-tools.org/repo-snapshots/"
 resolvers += "Querulous" at "http://maven.twttr.com/"
 
 libraryDependencies ++= Seq(
+  "javax.mail" % "mail" % "1.4.4",
   "com.twitter" % "querulous" % "2.6.5",
+  "com.twitter" %% "util" % "1.12.8",
   "org.clapper" %% "grizzled-scala" % "1.0.9",
+  "org.clapper" %% "grizzled-slf4j" % "0.6.6",
   "org.fusesource.scalate" % "scalate-wikitext" % "1.5.3",
   "org.fusesource.scalate" % "scalate-page" % "1.5.3",
   "org.scala-tools.testing" %% "specs" % "1.6.9" % "test->default",
-  "mysql" % "mysql-connector-java" % "5.1.15" % "compile->default",
   "ch.qos.logback" % "logback-classic" % "0.9.27" % "compile->default"
 )
