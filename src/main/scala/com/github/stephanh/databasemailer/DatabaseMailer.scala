@@ -2,7 +2,7 @@ import scala.io.Source
 import scala.collection.Map
 import scala.xml.{XML, NodeSeq}
 
-import grizzled.config.{Configuration, Section}
+import grizzled.config.{Configuration, ConfigException, Section}
 
 import com.twitter.querulous.evaluator.QueryEvaluator
 
@@ -16,7 +16,7 @@ object DatabaseMailer {
 
     val config = Configuration(Source.fromFile(configFile))
 
-    val defaultDBSettings = DBConnectionSettings(config.getSection("general").get)
+    val defaultDBSettings = DBConnectionSettings(config.getSection("general").getOrElse(throw new ConfigException("Need general selection in config file")))
 
 
     val querySectionRegex = ("^" + querySectionPrefix + ".*").r
@@ -28,8 +28,8 @@ object DatabaseMailer {
     
 
     new QueryRender(section.name.drop(querySectionPrefix length),
-                    section.options("sql"),
-                    section.options("template"),
+                    section.options.get("sql").getOrElse(throw new ConfigException("%s needs to include \"sql\" attribute" format (section.name))),
+                    section.options.get("template").getOrElse(throw new ConfigException("%s needs to include \"template\" attribute" format (section.name))),
                     dbSettings)
   }
 }
@@ -38,7 +38,10 @@ case class DBConnectionSettings(val host: String, val user: String, val password
 
 object DBConnectionSettings {
   def apply(section: Section): DBConnectionSettings =
-    new DBConnectionSettings(section.options("db.host"), section.options("db.username"), section.options.getOrElse("db.password", ""), section.options.getOrElse("db.port", "3306").toInt)
+    new DBConnectionSettings(section.options.get("db.host").getOrElse(throw new ConfigException("%s needs to include \"db.host\" attribute" format (section.name))),
+                             section.options.get("db.username").getOrElse(throw new ConfigException("%s needs to include \"db.username\" attribute" format (section.name))),
+                             section.options.getOrElse("db.password", ""),
+                             section.options.getOrElse("db.port", "3306").toInt)
 }
     
 
