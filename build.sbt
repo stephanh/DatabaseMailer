@@ -19,7 +19,7 @@ resolvers += "Querulous" at "http://maven.twttr.com/"
 libraryDependencies ++= Seq(
   "javax.mail" % "mail" % "1.4.4",
   "com.twitter" % "querulous" % "2.6.5",
-  "com.twitter" %% "util" % "1.12.8",
+  "com.twitter" %% "util-core" % "1.12.12",
   "org.clapper" %% "grizzled-scala" % "1.0.9",
   "org.clapper" %% "grizzled-slf4j" % "0.6.6",
   "org.fusesource.scalate" % "scalate-wikitext" % "1.5.3",
