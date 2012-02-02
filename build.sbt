@@ -10,13 +10,7 @@ scalaVersion := "2.9.1"
 
 // scalacOptions += "-deprecation"
 
-//resolvers += "Querulous" at "http://maven.twttr.com/"
-
-externalResolvers := Seq(
-  Resolver.url("proxy-ivy", url("http://localhost:8081/nexus/content/groups/public-ivy/"))(Resolver.ivyStylePatterns),
-  "proxy" at "http://localhost:8081/nexus/content/groups/public/",
-  "proxy-maven" at "http://localhost:8081/nexus/content/groups/public-maven/"
-)
+resolvers += "Querulous" at "http://maven.twttr.com/"
 
 libraryDependencies ++= Seq(
   "javax.mail" % "mail" % "1.4.4",
